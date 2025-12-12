@@ -17,20 +17,20 @@ const Home: React.FC = () => {
     <div className="space-y-12">
 
       {/* Seção Hero / Banner */}
-      <section className="bg-gradient-to-r from-gray-900 to-gray-700 text-white py-12 md:py-20 rounded-xl shadow-xl text-center px-4">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight">
+        <section className="bg-gradient-to-r from-black to-gray-900 text-white py-12 md:py-20 rounded-xl shadow-xl text-center px-4">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight">
           High Vision Store
-        </h1>
-        <p className="text-sm sm:text-base md:text-lg mt-2 opacity-90">
+      </h1>
+      <p className="text-sm sm:text-base md:text-lg mt-2 opacity-90">
           Moda Premium | Estilo | Qualidade | Exclusividade
-        </p>
-        <Link
+      </p>
+      <Link
           to="/products"
           className="mt-4 md:mt-6 inline-block bg-white text-gray-900 px-5 py-2 md:px-6 rounded-full shadow-lg hover:bg-gray-200 transition font-semibold text-sm md:text-base"
-        >
+      >
           Ver Produtos
-        </Link>
-      </section>
+      </Link>
+          </section>
 
       {/* Produtos em destaque */}
       <section className="container mx-auto px-4">

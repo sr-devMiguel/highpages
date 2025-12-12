@@ -12,7 +12,9 @@ const ProductCard: React.FC<Product> = ({ id, name, price, image }) => {
   const [isAdded, setIsAdded] = useState(false)
 
   const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault() // Previne navegação ao clicar no botão
+    e.preventDefault() 
+    e.stopPropagation() 
+
     addToCart({ id, name, price, image })
     setIsAdded(true)
     showToast(`${name} adicionado ao carrinho!`, 'success')
@@ -20,61 +22,69 @@ const ProductCard: React.FC<Product> = ({ id, name, price, image }) => {
   }
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      whileHover={{ y: -8 }}
-      className="border rounded-2xl p-3 md:p-4 shadow-sm hover:shadow-2xl bg-white transition-all duration-300 w-full group"
+    <Link 
+      to={`/product/${id}`}
     >
-      {/* Imagem */}
-      <div className="w-full aspect-square overflow-hidden rounded-xl mb-3 md:mb-4 bg-gray-100">
-        <motion.img
-          src={image}
-          alt={name}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-          loading="lazy"
-        />
-      </div>
-
-      {/* Título */}
-      <h3 className="text-base md:text-lg font-semibold text-gray-900 line-clamp-2 mb-1">
-        {name}
-      </h3>
-
-      {/* Preço */}
-      <motion.p 
-        className="text-gray-700 mt-1 font-medium text-base md:text-lg"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
+      <motion.article
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        whileHover={{ y: -8 }}
+        className="border rounded-2xl p-3 md:p-4 shadow-sm hover:shadow-2xl bg-white transition-all duration-300 w-full group"
       >
-        R$ {price.toFixed(2)}
-      </motion.p>
+        {/* Imagem */}
+        <div className="w-full aspect-square relative overflow-hidden rounded-xl mb-3 md:mb-4 bg-gray-100">
+          <motion.img
+            src={image}
+            alt={name}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            loading="lazy"
+          />
+          
+          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-5 opacity-0 group-hover:opacity-50 transition-opacity duration-300 pointer-events-none">
+            <Eye size={30} className="text-white drop-shadow-lg" />
+          </div>
+        </div>
 
-      {/* Botão */}
-      <motion.button
-        onClick={handleAddToCart}
-        whileTap={{ scale: 0.95 }}
-        className={`mt-3 md:mt-4 w-full py-2 md:py-2.5 rounded-lg transition-all duration-300 font-semibold text-sm md:text-base flex items-center justify-center gap-2 ${
-          isAdded 
-            ? 'bg-green-600 text-white' 
-            : 'bg-black text-white hover:bg-gray-800 hover:shadow-lg'
-        }`}
-      >
-        {isAdded ? (
-          <>
-            <Check size={18} />
-            Adicionado!
-          </>
-        ) : (
-          <>
-            <ShoppingCart size={18} />
-            Adicionar ao Carrinho
-          </>
-        )}
-      </motion.button>
-    </motion.article>
+        {/* Título */}
+        <h3 className="text-base md:text-lg font-semibold text-gray-900 line-clamp-2 mb-1">
+          {name}
+        </h3>
+
+        {/* Preço */}
+        <motion.p 
+          className="text-gray-700 mt-1 font-medium text-base md:text-lg"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          R$ {price.toFixed(2)}
+        </motion.p>
+
+        {/* Botão */}
+        <motion.button
+          onClick={handleAddToCart}
+          whileTap={{ scale: 0.95 }}
+          className={`mt-3 md:mt-4 w-full py-2 md:py-2.5 rounded-lg transition-all duration-300 font-semibold text-sm md:text-base flex items-center justify-center gap-2 ${
+            isAdded 
+              ? 'bg-green-600 text-white' 
+              : 'bg-black text-white hover:bg-gray-800 hover:shadow-lg'
+          }`}
+        >
+          {isAdded ? (
+            <>
+              <Check size={18} />
+              Adicionado!
+            </>
+          ) : (
+            <>
+              <ShoppingCart size={18} />
+              Adicionar ao Carrinho
+            </>
+          )}
+        </motion.button>
+      </motion.article>
+    </Link>
   )
 }
 
